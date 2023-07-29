@@ -23,7 +23,7 @@ public class Selection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject())
+        if(Input.GetKeyDown(KeyCode.Mouse0) && !EventSystem.current.IsPointerOverGameObject() && !movementController.isMoving)
         {
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if(Physics.Raycast(ray, out raycastHit))

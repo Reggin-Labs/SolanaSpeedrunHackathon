@@ -4,16 +4,27 @@ using UnityEngine;
 
 public class MovementController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public bool isMoving = false;
+
+    public float rotationDuration = 0.5f;
+    public float movementDuration = 1f;
+
+    public int blockDistance = 4;
+
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.forward * 4f, Color.red);
+        isMoving = gameObject.GetComponent<iTween>() != null ? true : false;
+
+        Debug.DrawRay(transform.position, transform.forward * blockDistance, Color.red);
+        Debug.DrawRay(transform.position, transform.right * blockDistance, Color.red);
+        Debug.DrawRay(transform.position, -transform.forward * blockDistance, Color.red);
+        Debug.DrawRay(transform.position, -transform.right * blockDistance, Color.red);
     }
 
     public void triggerMovement(Transform selection)
@@ -22,14 +33,66 @@ public class MovementController : MonoBehaviour
 
         #region Forward Ray
         Ray forwardRay = new Ray(transform.position, transform.forward);
-        if(Physics.Raycast(forwardRay, out raycastHit, 4f))
+        if(Physics.Raycast(forwardRay, out raycastHit, blockDistance))
         {
             if(raycastHit.transform == selection)
             {
-                transform.position = selection.position;
+                lookForward();
+                iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", 0f));
             }
-            Debug.Log(raycastHit.transform.name);
         }
         #endregion
+
+        #region Right Ray
+        Ray rightRay = new Ray(transform.position, transform.right);
+        if(Physics.Raycast(rightRay, out raycastHit, blockDistance))
+        {
+            if(raycastHit.transform == selection)
+            {
+                lookRight();
+                iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", rotationDuration));
+            }
+        }
+        #endregion
+
+        #region Backward Ray
+        Ray backwardRay = new Ray(transform.position, -transform.forward);
+        if(Physics.Raycast(backwardRay, out raycastHit, blockDistance))
+        {
+            if(raycastHit.transform == selection)
+            {
+                lookBackward();
+                iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", rotationDuration));
+            }
+        }
+        #endregion
+
+        #region Left Ray
+        Ray leftRay = new Ray(transform.position, -transform.right);
+        if(Physics.Raycast(leftRay, out raycastHit, blockDistance))
+        {
+            if(raycastHit.transform == selection)
+            {
+                lookLeft();
+                iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", rotationDuration));
+            }
+        }
+        #endregion
+    }
+
+    void lookForward(){
+        iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
+    }
+
+    void lookRight(){
+        iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y + 90f, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
+    }
+
+    void lookBackward(){
+        iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y + 180f, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
+    }
+
+    void lookLeft(){
+        iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y - 90f, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
     }
 }
