@@ -31,7 +31,6 @@ public class Selection : MonoBehaviour
                 if(selection != null && selection != raycastHit.transform && raycastHit.transform.CompareTag("Markers"))
                 {
                     selection.GetComponent<Renderer>().material = originalMaterial;
-                    Debug.Log(selection.name);
                 }
                 if(selection == raycastHit.transform || !raycastHit.transform.CompareTag("Markers")) return;
                 selection = raycastHit.transform;
