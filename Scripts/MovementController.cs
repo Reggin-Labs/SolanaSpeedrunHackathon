@@ -20,11 +20,6 @@ public class MovementController : MonoBehaviour
     void Update()
     {
         isMoving = gameObject.GetComponent<iTween>() != null ? true : false;
-
-        Debug.DrawRay(transform.position, transform.forward * blockDistance, Color.red);
-        Debug.DrawRay(transform.position, transform.right * blockDistance, Color.red);
-        Debug.DrawRay(transform.position, -transform.forward * blockDistance, Color.red);
-        Debug.DrawRay(transform.position, -transform.right * blockDistance, Color.red);
     }
 
     public void triggerMovement(Transform selection)
