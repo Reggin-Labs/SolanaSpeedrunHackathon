@@ -29,7 +29,8 @@ public class SpawnCard : MonoBehaviour
         if(Physics.Raycast(ray,out raycastHit,Mathf.Infinity)){
             Debug.Log(raycastHit.collider.gameObject);
             Debug.Log(raycastHit.transform.position);
-            Instantiate(selectedCard,raycastHit.transform.position,Quaternion.identity);
+            if(raycastHit.transform.CompareTag("CheckBox"))
+                Instantiate(selectedCard,raycastHit.transform.position,Quaternion.identity);
         }
     }
 
