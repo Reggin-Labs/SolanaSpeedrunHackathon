@@ -20,11 +20,14 @@ public class SpawnCard : MonoBehaviour
     public TMP_Text timerTxt;
     public TMP_Text round;
 
+    EnemyController enemyController;
+
     public List<MovementController> movementController = new List<MovementController>();
 
     void Start()
     {
         buttons=GameObject.FindGameObjectsWithTag("Card Button");
+        enemyController=GameObject.Find("EnemyBoxes").GetComponent<EnemyController>();
         //movementController = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementController>();
     }
 
@@ -60,6 +63,7 @@ public class SpawnCard : MonoBehaviour
             {
                 gameRound++;
                 //Debug.Log("Enemy time Up!!");
+                enemyController.checkEmptyPlaces();
                 timeLeft=5;
                 timerOn=true;
             }
@@ -107,7 +111,6 @@ public class SpawnCard : MonoBehaviour
     IEnumerator moveForward()
     {
         yield return new WaitForSeconds(1);
-        Debug.Log(movementController);
         foreach(MovementController mov in movementController)
         {
             //Debug.Log(mov);

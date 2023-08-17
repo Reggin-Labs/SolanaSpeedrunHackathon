@@ -12,10 +12,13 @@ public class MovementController : MonoBehaviour
 
     public int blockDistance = 1;
 
+    SpawnCard spawncard;
+    EnemyController enemyController;
 
     void Start()
     {
-        
+        spawncard=GameObject.FindGameObjectWithTag("GameController").GetComponent<SpawnCard>();
+        enemyController=GameObject.Find("EnemyBoxes").GetComponent<EnemyController>();
     }
 
     void Update()
@@ -27,7 +30,7 @@ public class MovementController : MonoBehaviour
     {
         RaycastHit raycastHit;
 
-        Debug.DrawRay(transform.position,transform.forward*1,Color.red,10);
+        //Debug.DrawRay(transform.position,transform.forward*1,Color.red,10);
         //Debug.Log("Ray drew");
         #region Forward Ray
         Ray forwardRay = new Ray(transform.position, transform.forward);
@@ -35,70 +38,46 @@ public class MovementController : MonoBehaviour
         if(Physics.Raycast(forwardRay, out raycastHit, blockDistance))
         {
             
-            if(raycastHit.transform.CompareTag("CheckBox"))
+            if(raycastHit.transform.CompareTag("CheckBox") || raycastHit.transform.CompareTag("Base"))
             {
                 //lookForward();
                 iTween.MoveTo(gameObject, iTween.Hash("position", raycastHit.transform.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", 0f));
                 
             }
-            else if(raycastHit.transform.CompareTag("Base"))
-            {
-                Debug.Log("Hitting");
-                iTween.MoveTo(gameObject, iTween.Hash("position", raycastHit.transform.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", 0f));
-            }
         }
         #endregion
-
-        // #region Right Ray
-        // Ray rightRay = new Ray(transform.position, transform.right);
-        // if(Physics.Raycast(rightRay, out raycastHit, blockDistance))
-        // {
-        //     if(raycastHit.transform == selection)
-        //     {
-        //         lookRight();
-        //         iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", rotationDuration));
-        //     }
-        // }
-        // #endregion
-
-        // #region Backward Ray
-        // Ray backwardRay = new Ray(transform.position, -transform.forward);
-        // if(Physics.Raycast(backwardRay, out raycastHit, blockDistance))
-        // {
-        //     if(raycastHit.transform == selection)
-        //     {
-        //         lookBackward();
-        //         iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", rotationDuration));
-        //     }
-        // }
-        // #endregion
-
-        // #region Left Ray
-        // Ray leftRay = new Ray(transform.position, -transform.right);
-        // if(Physics.Raycast(leftRay, out raycastHit, blockDistance))
-        // {
-        //     if(raycastHit.transform == selection)
-        //     {
-        //         lookLeft();
-        //         iTween.MoveTo(gameObject, iTween.Hash("position", selection.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", rotationDuration));
-        //     }
-        // }
-        // #endregion
     }
 
-    // void lookForward(){
-    //     iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
-    // }
+    private void OnTriggerEnter(Collider other)
+    {
+        
+        if(other.CompareTag("Enemy"))
+        {
+            Debug.Log("Collided with enemy");
+            MovementController movScript=other.gameObject.GetComponent<MovementController>();
+            int enemyHealth=movScript.health;
+            if(enemyHealth>health)
+            {
+                movScript.health-=health;
+                spawncard.movementController.Remove(this);
+                Destroy(gameObject,1);
+                Debug.Log("player destroyed");
+            }
+            else if(enemyHealth<health)
+            {
+                health-=enemyHealth;
+                enemyController.movementController.Remove(movScript);
+                Destroy(other.gameObject,1);
+                Debug.Log("Enemy destroyed");
+            }
+            else{
+                spawncard.movementController.Remove(this);
+                enemyController.movementController.Remove(movScript);
+                Destroy(gameObject,1);
+                Destroy(other.gameObject,1);
+                Debug.Log("Both destroyed");
+            }
+        }
+    }
 
-    // void lookRight(){
-    //     iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y + 90f, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
-    // }
-
-    // void lookBackward(){
-    //     iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y + 180f, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
-    // }
-
-    // void lookLeft(){
-    //     iTween.RotateTo(gameObject, iTween.Hash("rotation", new Vector3(0f, transform.rotation.eulerAngles.y - 90f, 0f), "time", rotationDuration, "easetype", iTween.EaseType.linear));
-    // }
 }
