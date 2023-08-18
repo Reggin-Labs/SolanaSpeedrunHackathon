@@ -7,14 +7,12 @@ using Solana.Unity.SDK;
 public class WalletLogin : MonoBehaviour
 {
 
-    [SerializeField]
-    private Button loginBtnWalletAdapter;
-
-    // Start is called before the first frame update
-    [SerializeField]
-    private TMP_Text addressField;
+    Web3 web3;
+    public TMP_InputField addressField;
+    public Button loginBtnWalletAdapter;
     void Start()
     {
+        web3 = GameObject.Find("Solana").GetComponent<Web3>();
         loginBtnWalletAdapter.onClick.AddListener(LoginCheckerWalletAdapter);
     }
 
@@ -29,7 +27,7 @@ public class WalletLogin : MonoBehaviour
         Debug.Log("Hello");
         //if (Web3.Instance == null) return;
         Debug.Log("Here");
-        var account = await Web3.Instance.LoginWalletAdapter();
+        var account = await web3.LoginWalletAdapter();
         string address = account.ToString();
         addressField.text = address;
     }

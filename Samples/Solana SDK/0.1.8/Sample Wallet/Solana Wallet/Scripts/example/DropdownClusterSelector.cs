@@ -9,7 +9,7 @@ public class DropdownClusterSelector : MonoBehaviour
 {
     void OnEnable()
     {
-        int rpcDefault = PlayerPrefs.GetInt("rpcCluster", 0);
+        int rpcDefault = PlayerPrefs.GetInt("rpcCluster", 2);
         RpcNodeDropdownSelected(rpcDefault);
         Web3.OnWalletInstance += () => RpcNodeDropdownSelected(rpcDefault);
         GetComponent<TMP_Dropdown>().value = rpcDefault;
