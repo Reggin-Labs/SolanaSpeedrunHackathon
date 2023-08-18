@@ -58,12 +58,7 @@ namespace Solana.Unity.SDK.Example
             
             loginBtnXNFT.gameObject.SetActive(false);
 
-            if (Application.platform is RuntimePlatform.LinuxEditor or RuntimePlatform.WindowsEditor or RuntimePlatform.OSXEditor)
-            {
-                loginBtnWalletAdapter.onClick.RemoveListener(LoginCheckerWalletAdapter);
-                loginBtnWalletAdapter.onClick.AddListener(() =>
-                    Debug.LogWarning("Wallet adapter login is not yet supported in the editor"));
-            }
+            
 
             if(messageTxt != null)
                 messageTxt.gameObject.SetActive(false);
@@ -90,6 +85,7 @@ namespace Solana.Unity.SDK.Example
         private async void LoginCheckerWalletAdapter()
         {
             if(Web3.Instance == null) return;
+            Debug.Log("Here");
             var account = await Web3.Instance.LoginWalletAdapter();
             messageTxt.text = "";
             CheckAccount(account);

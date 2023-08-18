@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Samples",
+    "\\Samples\\Solana SDK",
+    "\\Samples\\Solana SDK\\0.1.8",
+    "\\Samples\\Solana SDK\\0.1.8\\Sample Wallet",
+    "\\Samples\\Solana SDK\\0.1.8\\Sample Wallet\\Solana Wallet",
+    "\\Samples\\Solana SDK\\0.1.8\\Sample Wallet\\Solana Wallet\\Scripts",
+    "\\Samples\\Solana SDK\\0.1.8\\Sample Wallet\\Solana Wallet\\Scripts\\example",
+    "\\Samples\\Solana SDK\\0.1.8\\Sample Wallet\\Solana Wallet\\Scripts\\example\\screens"
+  ],
+  "SelectedNode": "\\Samples\\Solana SDK\\0.1.8\\Sample Wallet\\Solana Wallet\\Scripts\\example\\screens\\LoginScreen.cs",
+  "PreviewInSolutionExplorer": false
+}
