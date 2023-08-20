@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8834884460901759777}
   - component: {fileID: 8834884460901759804}
   m_Layer: 5
-  m_Name: Sandeep Card
+  m_Name: EthereumUser Card
   m_TagString: Card Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5f655f36545a28a4c8781deedd965444, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf5001bb1f29ac346976dcd144c45955, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9c18aafe732b740bc6e1423e1a0a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardIndex: 4
-  coolDown: 3
+  cardIndex: 9
+  coolDown: 5
   disabledRound: 0
 --- !u!1 &8834884461400869211
 GameObject:

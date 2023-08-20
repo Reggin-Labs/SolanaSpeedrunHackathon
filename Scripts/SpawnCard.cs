@@ -8,13 +8,15 @@ public class SpawnCard : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] card;
+    public GameObject[] cardUI;
+    public GameObject[] cardDeck;
     public GameObject selectedCard;
     int cardIndex;
     public int gameRound=1;
     public float timeLeft;
     public float enemyTime;
     public bool timerOn=false;
-    private GameObject[] buttons;
+    public GameObject[] buttons;
     public GameObject[][] checkers;
 
     public TMP_Text timerTxt;
@@ -23,12 +25,62 @@ public class SpawnCard : MonoBehaviour
     EnemyController enemyController;
 
     public List<MovementController> movementController = new List<MovementController>();
+    private void Awake()
+    {
+        PlayerPrefs.SetString("Hero", "Anatoly Card");
+        PlayerPrefs.SetString("Building", "SolanaBuilding Card");
+        PlayerPrefs.SetString("Developer", "SolanaDeveloper Card");
+        PlayerPrefs.SetString("User", "SolanaUser Card");
+    }
 
     void Start()
     {
-        buttons=GameObject.FindGameObjectsWithTag("Card Button");
+        
         enemyController=GameObject.Find("EnemyBoxes").GetComponent<EnemyController>();
-        //movementController = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementController>();
+        
+        for(int i=0;i<5;i++)
+        {
+            string pref = PlayerPrefs.GetString("Hero", "Anatoly Card");
+            if (pref == cardUI[i].name)
+            {
+                var card=Instantiate(cardUI[i], cardDeck[0].transform.position, Quaternion.identity);
+                card.transform.parent = cardDeck[0].transform;
+                card.GetComponent<Image>().rectTransform.localScale = new Vector2(1,1);
+            } 
+        }
+        for(int i=5;i<7; i++)
+        {
+            string pref = PlayerPrefs.GetString("Building", "SolanaBuilding Card");
+            if (pref == cardUI[i].name)
+            {
+                var card = Instantiate(cardUI[i], cardDeck[1].transform.position, Quaternion.identity);
+                card.transform.parent = cardDeck[1].transform;
+                card.GetComponent<Image>().rectTransform.localScale = new Vector2(1, 1);
+            }
+        }
+        for (int i = 7; i < 9; i++)
+        {
+            string pref = PlayerPrefs.GetString("Developer", "SolanaDeveloper Card");
+            if (pref == cardUI[i].name)
+            {
+                var card = Instantiate(cardUI[i], cardDeck[2].transform.position, Quaternion.identity);
+                card.transform.parent = cardDeck[2].transform;
+                card.GetComponent<Image>().rectTransform.localScale = new Vector2(1, 1);
+            }
+        }
+        for (int i = 9; i < 11; i++)
+        {
+            string pref = PlayerPrefs.GetString("User", "SolanaUser Card");
+            if (pref == cardUI[i].name)
+            {
+                var card = Instantiate(cardUI[i], cardDeck[3].transform.position, Quaternion.identity);
+                card.transform.parent = cardDeck[3].transform;
+                card.GetComponent<Image>().rectTransform.localScale = new Vector2(1, 1);
+            }
+        }
+        buttons = GameObject.FindGameObjectsWithTag("Card Button");
+
+
     }
 
     // Update is called once per frame
@@ -81,8 +133,18 @@ public class SpawnCard : MonoBehaviour
             if(raycastHit.transform.CompareTag("CheckBox")){
                 GameObject instantiate=Instantiate(selectedCard,raycastHit.transform.position+new Vector3(0,0.6f,0),Quaternion.Euler(0,180,0));
                 timeLeft=0;
-                buttons[cardIndex].GetComponent<Button>().interactable=false;
-                buttons[cardIndex].GetComponent<CardButton>().disabledRound=gameRound;
+                GameObject obj = cardUI[cardIndex];
+                for(int i=0;i<4;i++)
+                {
+                    string name = buttons[i].name;
+                    name = name.Substring(0, name.Length - "(Clone)".Length);
+                    if(name==obj.name)
+                    {
+                        buttons[i].GetComponent<Button>().interactable = false;
+                        buttons[i].GetComponent<CardButton>().disabledRound = gameRound;
+                    }
+                }
+                
                 MovementController mov = instantiate.GetComponent<MovementController>();
                 movementController.Add(mov);
             }
