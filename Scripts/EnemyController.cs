@@ -8,13 +8,13 @@ public class EnemyController : MonoBehaviour
     public string tagToAdd="Enemy";
     public GameObject[] Checkers;
     public GameObject[] enemyCards;
-    public int[] coolDown=new int[] {1,2};
-    public int[] disabledRound=new int[] {0,0};
+    public int[] coolDown=new int[] {5,3,4,4,3,4,4,1,1,5,5};
+    public int[] disabledRound=new int[] {0,0,0,0,0,0,0,0,0,0,0};
     public Dictionary<GameObject, (int cooldown, int disabledround)> gameObjectCooldowns = new Dictionary<GameObject, (int, int)>();
     SpawnCard spawncard;
     public List<MovementController> movementController = new List<MovementController>();
-    
-    
+    public List<GameObject> availableCards = new List<GameObject>();
+
 
     void Start()
     {
@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
     public void checkEmptyPlaces()
     {   
         List<GameObject> emptyBox=new List<GameObject>();
-        List<GameObject> availableCards = new List<GameObject>();
+        
         foreach(GameObject obj in Checkers)
         {
           RaycastHit raycastHit;  

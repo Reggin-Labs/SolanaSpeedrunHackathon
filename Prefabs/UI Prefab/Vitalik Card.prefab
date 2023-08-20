@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9c18aafe732b740bc6e1423e1a0a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardIndex: 4
+  cardIndex: 1
   coolDown: 3
   disabledRound: 0
 --- !u!1 &8834884461400869211
