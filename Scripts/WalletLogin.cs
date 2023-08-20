@@ -25,7 +25,7 @@ public class WalletLogin : MonoBehaviour
 
     private async void LoginCheckerWalletAdapter()
     {
-        if (Web3.Instance == null) return;
+        //if (Web3.Instance == null) return;
         account = await web3.LoginWalletAdapter();
         string address = account.ToString();
         addressField.text = address;
