@@ -10,17 +10,23 @@ public class WalletLogin : MonoBehaviour
     Web3 web3;
     public TMP_Text addressField;
     public Button loginBtnWalletAdapter;
-    public Button goBack;
+    public Button goBackFromCardSelect;
+    public Button goBackFromMarketPlace;
     public Button cardSelect;
+    public Button marketPlace;
     public static Account account;
-    public GameObject AfterConnected;
+    public GameObject MainMenu;
+    public GameObject MarketPlace;
     public GameObject CardSelection;
     void Start()
     {
         web3 = GameObject.Find("Solana").GetComponent<Web3>();
         loginBtnWalletAdapter.onClick.AddListener(LoginCheckerWalletAdapter);
-        goBack.onClick.AddListener(GoBack);
+        goBackFromCardSelect.onClick.AddListener(GoBack);
+        goBackFromMarketPlace.onClick.AddListener(GoBackFromMarketPlace);
         cardSelect.onClick.AddListener(CardSelect);
+        marketPlace.onClick.AddListener(GoMarketPlace);
+
     }
 
     // Update is called once per frame
@@ -36,7 +42,7 @@ public class WalletLogin : MonoBehaviour
         string address = account.ToString();
         if (account != null)
         {
-            AfterConnected.SetActive(true);
+            MainMenu.SetActive(true);
         }
         addressField.text = address;
     }
@@ -44,13 +50,25 @@ public class WalletLogin : MonoBehaviour
     private void GoBack()
     {
         CardSelection.SetActive(false);
-        AfterConnected.SetActive(true);
+        MainMenu.SetActive(true);
+    }
+
+    private void GoBackFromMarketPlace()
+    {
+        MarketPlace.SetActive(false);
+        MainMenu.SetActive(true);
     }
 
     private void CardSelect()
     {
         CardSelection.SetActive(true);
-        AfterConnected.SetActive(false);
+        MainMenu.SetActive(false);
+    }
+
+    private void GoMarketPlace() 
+    {
+        MarketPlace.SetActive(true);
+        MainMenu.SetActive(false);
     }
         
 }
