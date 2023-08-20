@@ -79,7 +79,7 @@ public class SpawnCard : MonoBehaviour
             // Debug.Log(raycastHit.collider.gameObject);
             // Debug.Log(raycastHit.transform.position);
             if(raycastHit.transform.CompareTag("CheckBox")){
-                GameObject instantiate=Instantiate(selectedCard,raycastHit.transform.position,Quaternion.Euler(0,180,0));
+                GameObject instantiate=Instantiate(selectedCard,raycastHit.transform.position+new Vector3(0,0.6f,0),Quaternion.Euler(0,180,0));
                 timeLeft=0;
                 buttons[cardIndex].GetComponent<Button>().interactable=false;
                 buttons[cardIndex].GetComponent<CardButton>().disabledRound=gameRound;

@@ -8,8 +8,9 @@ public class WalletLogin : MonoBehaviour
 {
 
     Web3 web3;
-    public TMP_InputField addressField;
+    public TMP_Text addressField;
     public Button loginBtnWalletAdapter;
+    public static Account account;
     void Start()
     {
         web3 = GameObject.Find("Solana").GetComponent<Web3>();
@@ -24,10 +25,8 @@ public class WalletLogin : MonoBehaviour
 
     private async void LoginCheckerWalletAdapter()
     {
-        Debug.Log("Hello");
-        //if (Web3.Instance == null) return;
-        Debug.Log("Here");
-        var account = await web3.LoginWalletAdapter();
+        if (Web3.Instance == null) return;
+        account = await web3.LoginWalletAdapter();
         string address = account.ToString();
         addressField.text = address;
     }

@@ -33,15 +33,15 @@ public class MovementController : MonoBehaviour
         //Debug.DrawRay(transform.position,transform.forward*1,Color.red,10);
         //Debug.Log("Ray drew");
         #region Forward Ray
-        Ray forwardRay = new Ray(transform.position, transform.forward);
-        // Debug.Log(forwardRay);
+        Ray forwardRay = new Ray(transform.position-new Vector3(0,0.6f,0), transform.forward);
+        //Debug.Log(forwardRay);
         if(Physics.Raycast(forwardRay, out raycastHit, blockDistance))
         {
             
             if(raycastHit.transform.CompareTag("CheckBox") || raycastHit.transform.CompareTag("Base"))
             {
                 //lookForward();
-                iTween.MoveTo(gameObject, iTween.Hash("position", raycastHit.transform.position, "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", 0f));
+                iTween.MoveTo(gameObject, iTween.Hash("position", raycastHit.transform.position+new Vector3(0, 0.6f, 0), "time", movementDuration, "easetype", iTween.EaseType.linear, "delay", 0f));
                 
             }
         }
@@ -50,7 +50,6 @@ public class MovementController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
         if(other.CompareTag("Enemy"))
         {
             Debug.Log("Collided with enemy");

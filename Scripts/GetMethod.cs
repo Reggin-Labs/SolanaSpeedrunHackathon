@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -12,6 +13,7 @@ public class GetMethod : MonoBehaviour
 {
  
  TMP_InputField outputArea;
+ public TMP_Text Timer;
 
  void Start()
  {
@@ -20,7 +22,10 @@ public class GetMethod : MonoBehaviour
     GameObject.Find("PostButton").GetComponent<Button>().onClick.AddListener(PostData);
  }
 
- public void GetData() => StartCoroutine(GetData_Coroutine());
+ public void GetData()
+ {
+    StartCoroutine(GetDataWebHook_Coroutine());
+ }
  public void PostData() => StartCoroutine(PostData_Coroutine());
 
  IEnumerator GetData_Coroutine()
@@ -30,7 +35,7 @@ public class GetMethod : MonoBehaviour
 
     using(UnityWebRequest request=UnityWebRequest.Get(uri))
     {
-        request.SetRequestHeader("authorization","Bearer secret_a572c36ac4e44a55b5ea80bf8cca9fce");
+        request.SetRequestHeader("authorization","Bearer secret_979aa2e77e554978befd0ee30eaab621");
         yield return request.SendWebRequest();
         if(request.result==UnityWebRequest.Result.ConnectionError || request.result==UnityWebRequest.Result.ProtocolError){
             outputArea.text=request.error;
@@ -41,6 +46,40 @@ public class GetMethod : MonoBehaviour
         }
     }
 
+ }
+
+ IEnumerator GetDataWebHook_Coroutine()
+ {
+
+    var counter = 30;
+    var secondsToDecrement=1;
+    var dataFetched=false;
+    string uri="https://dotcombackend.me/";
+
+    while(counter>=0 && !dataFetched)
+    {
+        Timer.text=counter.ToString();
+        outputArea.text="Loading...";
+        using (UnityWebRequest request=UnityWebRequest.Get(uri))
+        {
+            yield return request.SendWebRequest();
+            if(request.result==UnityWebRequest.Result.ConnectionError || request.result==UnityWebRequest.Result.ProtocolError){
+                outputArea.text=request.error;
+            }
+            else
+            {
+                outputArea.text=request.downloadHandler.text;
+                if(request.downloadHandler.text!="Nothing")
+                {
+                    dataFetched=true;
+                    yield return PrintBody(request.downloadHandler.text);
+                }
+            }
+        }
+
+        yield return new WaitForSeconds(secondsToDecrement);
+        counter-=secondsToDecrement;
+    }
  }
 
  IEnumerator PostData_Coroutine()
@@ -107,6 +146,11 @@ public class GetMethod : MonoBehaviour
         }
     }
 
+ }
+
+ private async Task PrintBody(string data)
+ {
+    Debug.Log(data);
  }
 
 }

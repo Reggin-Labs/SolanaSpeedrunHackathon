@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour
             selectedTuple.disabledround=spawncard.gameRound;
             gameObjectCooldowns[selectedGameObject]=selectedTuple;
 
-            GameObject instantiate=Instantiate(selectedGameObject,emptyBox[randomBox].transform.position,Quaternion.Euler(0,0,0));
+            GameObject instantiate=Instantiate(selectedGameObject,emptyBox[randomBox].transform.position+new Vector3(0,0.6f,0),Quaternion.Euler(0,0,0));
             instantiate.tag=tagToAdd;
             MovementController mov = instantiate.GetComponent<MovementController>();
             movementController.Add(mov);
