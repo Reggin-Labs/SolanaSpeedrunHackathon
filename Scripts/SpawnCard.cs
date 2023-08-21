@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class SpawnCard : MonoBehaviour
 {
@@ -103,7 +104,7 @@ public class SpawnCard : MonoBehaviour
             else
             {   
                 //Debug.Log("Time is Up!");
-                enemyTime=10;
+                enemyTime=3;
                 StartCoroutine(moveForward());
                 timerOn=false;
                 updateRound(gameRound);
@@ -185,5 +186,9 @@ public class SpawnCard : MonoBehaviour
             mov.triggerMovement();
             
         }
+    }
+
+    public void quitToMainMenu(){
+        SceneManager.LoadScene(0);
     }
 }

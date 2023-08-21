@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-
+using UnityEngine.SceneManagement;
 
 public class WalletLogin : MonoBehaviour
 {
@@ -42,6 +42,10 @@ public class WalletLogin : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void playButton () {
+        SceneManager.LoadScene(1);
     }
 
     private async void LoginCheckerWalletAdapter()
