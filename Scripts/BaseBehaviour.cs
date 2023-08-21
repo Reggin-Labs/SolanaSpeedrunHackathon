@@ -34,10 +34,10 @@ public class BaseBehaviour : MonoBehaviour
             if(baseHealth>0)
             {
                 spawncard.movementController.Remove(movScript);
-                Destroy(other.gameObject,3);
+                Destroy(other.gameObject,2);
             }
             else 
-                Destroy(gameObject,3);
+                Destroy(gameObject);
         }
         else if(other.CompareTag("Enemy"))
         {
@@ -49,10 +49,10 @@ public class BaseBehaviour : MonoBehaviour
             if(baseHealth>0)
             {
                 enemyController.movementController.Remove(movScript);
-                Destroy(other.gameObject,3);
+                Destroy(other.gameObject,2);
             }
             else 
-                Destroy(gameObject,3);
+                Destroy(gameObject);
         }
     }
 }

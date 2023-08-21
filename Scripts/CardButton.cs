@@ -45,7 +45,7 @@ public class CardButton : MonoBehaviour
 
     void makeInteractable()
     {
-        if(disabledRound+coolDown<spawncard.gameRound)
+        if(disabledRound+coolDown<=spawncard.gameRound)
         {
             btn.interactable=true;
             gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text ="";
