@@ -28,13 +28,13 @@ public class SpawnCard : MonoBehaviour
     EnemyController enemyController;
 
     public List<MovementController> movementController = new List<MovementController>();
-    private void Awake()
+    /*private void Awake()
     {
         PlayerPrefs.SetString("Hero", "Anatoly Card");
         PlayerPrefs.SetString("Building", "SolanaBuilding Card");
         PlayerPrefs.SetString("Developer", "SolanaDeveloper Card");
         PlayerPrefs.SetString("User", "SolanaUser Card");
-    }
+    }*/
 
     void Start()
     {
@@ -44,6 +44,7 @@ public class SpawnCard : MonoBehaviour
         for(int i=0;i<5;i++)
         {
             string pref = PlayerPrefs.GetString("Hero", "Anatoly Card");
+            Debug.Log(pref);
             if (pref == cardUI[i].name)
             {
                 selectedCard = card[i];

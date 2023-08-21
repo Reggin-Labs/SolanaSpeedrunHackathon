@@ -27,6 +27,11 @@ public class WalletLogin : MonoBehaviour
     public GameObject[] mintbutton;
     public GameObject[] selectCards;
     public TMP_Text[] text;
+
+    public TextMeshProUGUI[] heroText;
+    public TextMeshProUGUI[] buildingText;
+    public TextMeshProUGUI[] developerText;
+    public TextMeshProUGUI[] userText;
     void Start()
     {
         web3 = GameObject.Find("Solana").GetComponent<Web3>();
@@ -41,7 +46,57 @@ public class WalletLogin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (TextMeshProUGUI txt in heroText)
+        {
+            string name = txt.transform.parent.transform.parent.gameObject.name;
+            if (name == PlayerPrefs.GetString("Hero", "Vitalik Card"))
+            {
+                txt.text = "Selected";
+            }
+            else
+            {
+                txt.text = "Select";
+            }
+        }
 
+        foreach (TextMeshProUGUI txt in buildingText)
+        {
+            string name = txt.transform.parent.transform.parent.gameObject.name;
+            if (name == PlayerPrefs.GetString("Building", "EthereumBuilding Card"))
+            {
+                txt.text = "Selected";
+            }
+            else
+            {
+                txt.text = "Select";
+            }
+        }
+
+        foreach (TextMeshProUGUI txt in developerText)
+        {
+            string name = txt.transform.parent.transform.parent.gameObject.name;
+            if (name == PlayerPrefs.GetString("Developer", "EthereumDeveloper Card"))
+            {
+                txt.text = "Selected";
+            }
+            else
+            {
+                txt.text = "Select";
+            }
+        }
+
+        foreach (TextMeshProUGUI txt in userText)
+        {
+            string name = txt.transform.parent.transform.parent.gameObject.name;
+            if (name == PlayerPrefs.GetString("User", "EthereumUser Card"))
+            {
+                txt.text = "Selected";
+            }
+            else
+            {
+                txt.text = "Select";
+            }
+        }
     }
 
     public void playButton () {
@@ -139,7 +194,9 @@ public class WalletLogin : MonoBehaviour
         {
             foreach(string name in assets)
             {
-                if(name!=obj.name)
+                string[] parts1 = obj.name.Split(" ");
+                string[] parts2 = name.Split(" ");
+                if(parts2[0]!=parts1[0])
                 {
                     //obj.GetComponentInChildren<Button>().interactable = false;
                     

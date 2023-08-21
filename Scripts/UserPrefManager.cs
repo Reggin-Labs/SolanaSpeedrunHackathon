@@ -6,10 +6,10 @@ using TMPro;
 public class UserPrefManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public TextMeshProUGUI[] heroText;
+   /* public TextMeshProUGUI[] heroText;
     public TextMeshProUGUI[] buildingText;
     public TextMeshProUGUI[] developerText;
-    public TextMeshProUGUI[] userText;
+    public TextMeshProUGUI[] userText;*/
 
     void Start()
     {
@@ -19,7 +19,7 @@ public class UserPrefManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach(TextMeshProUGUI txt in heroText)
+        /*foreach(TextMeshProUGUI txt in heroText)
         {
             string name = txt.transform.parent.transform.parent.gameObject.name;
             if(name==PlayerPrefs.GetString("Hero","Vitalik Buterin"))
@@ -69,7 +69,7 @@ public class UserPrefManager : MonoBehaviour
             {
                 txt.text = "Select";
             }
-        }
+        }*/
     }
 
     public void SetHero(string name) 
