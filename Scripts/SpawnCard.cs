@@ -19,7 +19,9 @@ public class SpawnCard : MonoBehaviour
     public GameObject[] buttons;
     public GameObject[][] checkers;
 
-    public TMP_Text timerTxt;
+    public TMP_Text playerTxt;
+    public TMP_Text aiTxt;
+
     public TMP_Text round;
 
     EnemyController enemyController;
@@ -43,9 +45,10 @@ public class SpawnCard : MonoBehaviour
             string pref = PlayerPrefs.GetString("Hero", "Anatoly Card");
             if (pref == cardUI[i].name)
             {
-                var card=Instantiate(cardUI[i], cardDeck[0].transform.position, Quaternion.identity);
-                card.transform.parent = cardDeck[0].transform;
-                card.GetComponent<Image>().rectTransform.localScale = new Vector2(1,1);
+                selectedCard = card[i];
+                var cards=Instantiate(cardUI[i], cardDeck[0].transform.position,Quaternion.identity);
+                cards.transform.parent = cardDeck[0].transform;
+                cards.GetComponent<Image>().rectTransform.localScale = new Vector2(1,1);
             } 
         }
         for(int i=5;i<7; i++)
@@ -91,7 +94,7 @@ public class SpawnCard : MonoBehaviour
             if(timeLeft>0)
             {
                 timeLeft-=Time.deltaTime;
-                updateTimer(timeLeft);
+                updateTimer(timeLeft,"player");
                 if(Input.GetMouseButtonDown(0))
                 {
                     CastRay();
@@ -100,7 +103,7 @@ public class SpawnCard : MonoBehaviour
             else
             {   
                 //Debug.Log("Time is Up!");
-                enemyTime=2;
+                enemyTime=10;
                 StartCoroutine(moveForward());
                 timerOn=false;
                 updateRound(gameRound);
@@ -110,13 +113,14 @@ public class SpawnCard : MonoBehaviour
             if(enemyTime>0)
             {
                 enemyTime-=Time.deltaTime;
+                updateTimer(enemyTime, "ai");
             }
             else
             {
                 gameRound++;
                 //Debug.Log("Enemy time Up!!");
                 enemyController.checkEmptyPlaces();
-                timeLeft=5;
+                timeLeft=10;
                 timerOn=true;
             }
         }
@@ -156,13 +160,15 @@ public class SpawnCard : MonoBehaviour
         selectedCard=card[this.cardIndex];
     }
 
-    void updateTimer(float currentTime)
+    void updateTimer(float currentTime,string user)
     {
         currentTime+=1;
-        float minutes=Mathf.FloorToInt(currentTime/60);
         float seconds=Mathf.FloorToInt(currentTime%60);
 
-        timerTxt.text=string.Format("{0:00} : {1:00}",minutes,seconds);
+        if (user == "player")
+            playerTxt.text = seconds.ToString();
+        else if (user == "ai")
+            aiTxt.text = seconds.ToString();
     }
     
     void updateRound(float currentRound)

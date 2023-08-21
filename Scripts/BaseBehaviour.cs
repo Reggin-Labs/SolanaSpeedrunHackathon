@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BaseBehaviour : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class BaseBehaviour : MonoBehaviour
     public int baseHealth;
     SpawnCard spawncard;
     EnemyController enemyController;
+    public TextMeshProUGUI Counter;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,8 @@ public class BaseBehaviour : MonoBehaviour
             MovementController movScript=other.gameObject.GetComponent<MovementController>();
             int playerHealth=movScript.health;
             baseHealth-=playerHealth;
-
+            if (Counter.tag == "Enemy")
+                Counter.text = baseHealth.ToString();
             if(baseHealth>0)
             {
                 spawncard.movementController.Remove(movScript);
@@ -41,7 +44,8 @@ public class BaseBehaviour : MonoBehaviour
             MovementController movScript=other.gameObject.GetComponent<MovementController>();
             int playerHealth=movScript.health;
             baseHealth-=playerHealth;
-
+            if (Counter.tag == "Player")
+                Counter.text = baseHealth.ToString();
             if(baseHealth>0)
             {
                 enemyController.movementController.Remove(movScript);
