@@ -70,19 +70,20 @@ public class File
 
 public class Creators
 {
-    public Creator[] creator { get; set; }
+    public Creator creator { get; set; }
 }
 
 public class Files
 {
-    public File[] file { get; set; }
-    public string category { get; set; }
+    public File file { get; set; }
+    //public string category { get; set; }
 }
 
 public class Properties
 {
-    public Files files { get; set; }
-    public Creators creators { get; set; }
+    public Files[] files { get; set; }
+    public string category { get; set; }
+    public Creators[] creators { get; set; }
 }
 
 public class Metadata

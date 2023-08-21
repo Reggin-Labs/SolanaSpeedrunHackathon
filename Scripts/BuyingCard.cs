@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
@@ -12,9 +13,22 @@ public class BuyingCard : MonoBehaviour
     private string character;
     public GameObject WhitePanel;
     public TMP_Text timer;
+    
+    //public GameObject[] mintbutton;
     void Start()
     {
-        
+       /* mintbutton = GameObject.FindGameObjectsWithTag("NFT Mint");
+        foreach(GameObject obj in mintbutton)
+        {
+            foreach(string name in WalletLogin.assets)
+            {
+                if(name==obj.name)
+                {
+                    obj.GetComponentInChildren<Button>().interactable = false;
+                    obj.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = "Unlocked";
+                }
+            }
+        }*/
     }
 
     // Update is called once per frame
